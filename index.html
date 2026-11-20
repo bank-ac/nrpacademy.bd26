@@ -1,1 +1,503 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#145c43">
+<title>NRP Academy | National Research & Progress Academy</title>
 
+<style>
+:root{
+  --green:#145c43;
+  --green2:#23835d;
+  --pink:#f2a0a4;
+  --coral:#d96d61;
+  --mint:#e8f5ed;
+  --cream:#fbfcf7;
+  --ink:#18352a;
+  --muted:#6b7e73;
+  --line:#e4ece5;
+  --white:#fff;
+  --shadow:0 12px 35px rgba(20,92,67,.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+header{
+  position:sticky;top:0;z-index:20;background:#ffffffed;
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+}
+.nav{
+  max-width:1150px;margin:auto;padding:13px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:15px;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--green)}
+.logo{
+  width:43px;height:43px;border-radius:14px;background:var(--green);
+  color:white;display:grid;place-items:center;font-size:20px;
+}
+.navlinks{display:flex;gap:20px;align-items:center;font-size:14px}
+.navlinks a:hover{color:var(--coral)}
+.container{max-width:1150px;margin:auto;padding:0 20px}
+.hero{
+  padding:75px 0 65px;
+  background:radial-gradient(circle at 85% 20%,#f8dfe1 0,transparent 28%),
+  linear-gradient(135deg,#e8f5ed,#fff8f3);
+}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:35px;align-items:center}
+.eyebrow{
+  display:inline-block;background:#fff;padding:8px 14px;border-radius:30px;
+  color:var(--green);font-size:13px;font-weight:800;border:1px solid var(--line)
+}
+h1{font-size:clamp(34px,5vw,58px);line-height:1.17;margin:20px 0;color:var(--green)}
+.hero p{font-size:17px;line-height:1.9;color:var(--muted);max-width:650px}
+.hero-art{
+  min-height:290px;border-radius:35px;
+  background:linear-gradient(145deg,var(--green),#2d946a);
+  color:white;padding:30px;display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.hero-art:after{
+  content:"";position:absolute;width:230px;height:230px;border-radius:50%;
+  background:#ffffff18;right:-55px;top:-55px;
+}
+.hero-art strong{font-size:27px;position:relative;z-index:1}
+.hero-art span{font-size:75px;position:relative;z-index:1}
+.btn{
+  border:0;border-radius:12px;padding:12px 19px;font-weight:800;
+  background:var(--green);color:white;display:inline-flex;justify-content:center;
+  align-items:center;gap:8px;
+}
+.btn:hover{background:var(--green2)}
+.btn-pink{background:var(--coral)}
+.btn-light{background:var(--mint);color:var(--green)}
+.btn-small{padding:8px 12px;font-size:13px}
+section{padding:65px 0}
+.section-title{text-align:center;margin-bottom:35px}
+.section-title h2{font-size:clamp(26px,4vw,36px);color:var(--green);margin:0 0 10px}
+.section-title p{color:var(--muted);margin:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:-25px;position:relative}
+.stat,.card,.panel{
+  background:white;border:1px solid var(--line);border-radius:19px;
+  padding:22px;box-shadow:var(--shadow);
+}
+.stat{text-align:center}
+.stat strong{display:block;color:var(--green);font-size:27px}
+.stat span{color:var(--muted);font-size:13px}
+.about-grid,.portal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card h3{color:var(--green);margin-top:0}
+.card p{color:var(--muted);line-height:1.8}
+.class-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.class-item{
+  padding:18px;background:white;border:1px solid var(--line);
+  border-radius:14px;text-align:center;color:var(--green);font-weight:800
+}
+.portal-grid{grid-template-columns:repeat(3,1fr)}
+.portal-card{padding:25px;border-radius:20px;background:white;border:1px solid var(--line)}
+.portal-card .emoji{font-size:32px}
+.portal-card h3{color:var(--green)}
+.portal-card p{font-size:14px;color:var(--muted);line-height:1.7}
+.dashboard{display:none;padding:35px 0 70px}
+.dashboard.active{display:block}
+.dashboard-head{
+  background:linear-gradient(120deg,var(--green),var(--green2));
+  color:white;padding:25px;border-radius:20px;margin-bottom:22px;
+  display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap
+}
+.dashboard-head h2{margin:0 0 5px}
+.dashboard-head p{margin:0;opacity:.85}
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel h3{margin-top:0;color:var(--green)}
+.field{margin:12px 0}
+.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
+.field input,.field select,.field textarea{
+  width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;
+  background:#fff;outline:none;color:var(--ink)
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green2)}
+.field textarea{min-height:90px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.message{padding:11px;border-radius:10px;margin:12px 0;font-size:14px;display:none}
+.message.show{display:block}
+.message.error{background:#ffe9e8;color:#a52d28}
+.message.success{background:#e4f6e9;color:#17613c}
+.list-item{padding:14px 0;border-bottom:1px solid var(--line)}
+.list-item:last-child{border-bottom:0}
+.list-item h4{margin:0 0 5px;color:var(--green)}
+.list-item p{margin:5px 0;color:var(--muted);font-size:14px;white-space:pre-wrap}
+.list-item small{color:var(--muted)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.status{font-size:12px;font-weight:900;padding:5px 9px;border-radius:20px}
+.pending{background:#fff3d9;color:#895900}
+.approved{background:#e4f6e9;color:#17613c}
+.rejected{background:#ffe9e8;color:#a52d28}
+.empty{color:var(--muted);font-size:14px;padding:15px 0}
+footer{background:#103f30;color:white;padding:35px 0}
+footer p{color:#d6e8dc;font-size:14px}
+.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.modal{
+  display:none;position:fixed;inset:0;z-index:50;background:#10291f99;
+  padding:18px;overflow:auto;align-items:center;justify-content:center
+}
+.modal.show{display:flex}
+.modal-box{
+  background:white;width:100%;max-width:450px;padding:25px;border-radius:20px;
+  box-shadow:0 20px 60px #0003;position:relative
+}
+.modal-box h2{color:var(--green);margin-top:0}
+.close{
+  position:absolute;right:17px;top:12px;border:0;background:transparent;
+  font-size:25px;color:var(--muted)
+}
+.hidden{display:none!important}
+.notice-highlight{background:var(--mint);border-left:4px solid var(--green);padding:14px;border-radius:8px}
+@media(max-width:760px){
+  .hero-grid,.about-grid,.dashboard-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .portal-grid{grid-template-columns:1fr}
+  .class-grid{grid-template-columns:repeat(2,1fr)}
+  .navlinks{gap:10px;font-size:12px}
+  .navlinks a:nth-child(2),.navlinks a:nth-child(3){display:none}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <nav class="nav">
+    <a class="brand" href="#">
+      <span class="logo">N</span>
+      <span>NRP Academy</span>
+    </a>
+    <div class="navlinks">
+      <a href="#about">আমাদের সম্পর্কে</a>
+      <a href="#classes">শ্রেণি</a>
+      <a href="#portals">পোর্টাল</a>
+      <button class="btn btn-small" onclick="openAuth('login')">লগইন</button>
+    </div>
+  </nav>
+</header>
+
+<main id="publicSite">
+  <div class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">শিক্ষা • গবেষণা • অগ্রগতি</span>
+        <h1>জ্ঞান, দক্ষতা ও নৈতিকতায় গড়ে উঠুক আগামীর প্রজন্ম</h1>
+        <p>
+          National Research & Progress Academy — শিক্ষার্থীদের
+          মানসম্মত শিক্ষা, সৃজনশীল চিন্তা এবং সুন্দর ভবিষ্যৎ গঠনের
+          একটি আধুনিক শিক্ষাপ্রতিষ্ঠান।
+        </p>
+        <button class="btn btn-pink" onclick="openAuth('register')">ভর্তি / নিবন্ধন করুন</button>
+        <a class="btn btn-light" href="#about">আরও জানুন</a>
+      </div>
+      <div class="hero-art">
+        <strong>Learn Today,<br>Lead Tomorrow.</strong>
+        <span>📚</span>
+        <div>একটি সুন্দর ভবিষ্যতের পথে</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat"><strong>১–১২</strong><span>শ্রেণিভিত্তিক শিক্ষা</span></div>
+      <div class="stat"><strong>২৪/৭</strong><span>অনলাইন অ্যাক্সেস</span></div>
+      <div class="stat"><strong>১টি</strong><span>শিক্ষার্থী পোর্টাল</span></div>
+      <div class="stat"><strong>∞</strong><span>শেখার সুযোগ</span></div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-title">
+        <h2>আমাদের সম্পর্কে</h2>
+        <p>শিক্ষার মাধ্যমে জ্ঞানী, দক্ষ ও দায়িত্বশীল মানুষ তৈরি</p>
+      </div>
+      <div class="about-grid">
+        <div class="card">
+          <h3>🎯 আমাদের লক্ষ্য</h3>
+          <p>শিক্ষার্থীদের পাঠ্যজ্ঞান, চিন্তাশক্তি, সৃজনশীলতা এবং নৈতিক মূল্যবোধ বিকাশে সহায়তা করা।</p>
+        </div>
+        <div class="card">
+          <h3>🌱 আমাদের অঙ্গীকার</h3>
+          <p>শিক্ষার্থীদের জন্য একটি সুন্দর, সুশৃঙ্খল ও প্রযুক্তিনির্ভর শিক্ষার পরিবেশ গড়ে তোলা।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="classes" style="background:#f0f7f1">
+    <div class="container">
+      <div class="section-title">
+        <h2>আমাদের শ্রেণিসমূহ</h2>
+        <p>প্রথম শ্রেণি থেকে দ্বাদশ শ্রেণি</p>
+      </div>
+      <div class="class-grid">
+        <div class="class-item">প্রথম শ্রেণি</div>
+        <div class="class-item">দ্বিতীয় শ্রেণি</div>
+        <div class="class-item">তৃতীয় শ্রেণি</div>
+        <div class="class-item">চতুর্থ শ্রেণি</div>
+        <div class="class-item">পঞ্চম শ্রেণি</div>
+        <div class="class-item">ষষ্ঠ শ্রেণি</div>
+        <div class="class-item">সপ্তম শ্রেণি</div>
+        <div class="class-item">অষ্টম শ্রেণি</div>
+        <div class="class-item">নবম শ্রেণি</div>
+        <div class="class-item">দশম শ্রেণি</div>
+        <div class="class-item">একাদশ শ্রেণি</div>
+        <div class="class-item">দ্বাদশ শ্রেণি</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portals">
+    <div class="container">
+      <div class="section-title">
+        <h2>অনলাইন পোর্টাল</h2>
+        <p>নিজ নিজ অ্যাকাউন্ট থেকে প্রয়োজনীয় তথ্য দেখুন</p>
+      </div>
+      <div class="portal-grid">
+        <div class="portal-card">
+          <div class="emoji">🎓</div>
+          <h3>শিক্ষার্থী পোর্টাল</h3>
+          <p>নিবন্ধন, অনুমোদনের অবস্থা, নোটিশ, রুটিন ও ফলাফল দেখুন।</p>
+          <button class="btn" onclick="openAuth('login')">শিক্ষার্থী লগইন</button>
+        </div>
+        <div class="portal-card">
+          <div class="emoji">🛡️</div>
+          <h3>Admin প্যানেল</h3>
+          <p>শিক্ষার্থী অনুমোদন, নোটিশ, রুটিন ও ফলাফল পরিচালনা করুন।</p>
+          <button class="btn btn-pink" onclick="openAuth('login')">Admin লগইন</button>
+        </div>
+        <div class="portal-card">
+          <div class="emoji">📖</div>
+          <h3>শিক্ষা সহায়তা</h3>
+          <p>শ্রেণিভিত্তিক শিক্ষা কার্যক্রম ও প্রয়োজনীয় তথ্যের জন্য যোগাযোগ করুন।</p>
+          <a class="btn btn-light" href="#contact">যোগাযোগ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Dashboard -->
+<section class="dashboard" id="dashboard">
+  <div class="container">
+    <div class="dashboard-head">
+      <div>
+        <h2 id="dashboardTitle">Dashboard</h2>
+        <p id="dashboardSubtitle"></p>
+      </div>
+      <button class="btn btn-pink" onclick="logout()">লগআউট</button>
+    </div>
+
+    <div id="studentArea" class="hidden">
+      <div id="studentStatus" class="panel" style="margin-bottom:18px"></div>
+      <div class="dashboard-grid">
+        <div class="panel">
+          <h3>📢 নোটিশ বোর্ড</h3>
+          <div id="studentNotices" class="empty">লোড হচ্ছে...</div>
+        </div>
+        <div class="panel">
+          <h3>🗓️ ক্লাস রুটিন</h3>
+          <div id="studentRoutines" class="empty">লোড হচ্ছে...</div>
+        </div>
+        <div class="panel" style="grid-column:1/-1">
+          <h3>📊 আমার ফলাফল</h3>
+          <div id="studentResults" class="empty">লোড হচ্ছে...</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="adminArea" class="hidden">
+      <div class="panel" style="margin-bottom:18px">
+        <h3>👥 শিক্ষার্থী নিবন্ধন অনুমোদন</h3>
+        <div id="pendingStudents" class="empty">লোড হচ্ছে...</div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <h3>📢 নতুন নোটিশ প্রকাশ</h3>
+          <form id="noticeForm">
+            <div class="field"><label>নোটিশের শিরোনাম</label><input id="noticeTitle" required maxlength="120"></div>
+            <div class="field"><label>বিস্তারিত</label><textarea id="noticeBody" required maxlength="3000"></textarea></div>
+            <button class="btn" type="submit">নোটিশ প্রকাশ করুন</button>
+          </form>
+          <div id="noticeMessage" class="message"></div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+          <h3>প্রকাশিত নোটিশ</h3>
+          <div id="adminNotices" class="empty">লোড হচ্ছে...</div>
+        </div>
+
+        <div class="panel">
+          <h3>🗓️ ক্লাস রুটিন যোগ করুন</h3>
+          <form id="routineForm">
+            <div class="field">
+              <label>শ্রেণি</label>
+              <select id="routineClass" required>
+                <option value="">শ্রেণি নির্বাচন করুন</option>
+                <option>প্রথম</option><option>দ্বিতীয়</option><option>তৃতীয়</option>
+                <option>চতুর্থ</option><option>পঞ্চম</option><option>ষষ্ঠ</option>
+                <option>সপ্তম</option><option>অষ্টম</option><option>নবম</option>
+                <option>দশম</option><option>একাদশ</option><option>দ্বাদশ</option>
+              </select>
+            </div>
+            <div class="field"><label>বিষয়</label><input id="routineSubject" required maxlength="100"></div>
+            <div class="form-row">
+              <div class="field"><label>দিন</label>
+                <select id="routineDay" required>
+                  <option value="">দিন নির্বাচন</option>
+                  <option>শনিবার</option><option>রবিবার</option><option>সোমবার</option>
+                  <option>মঙ্গলবার</option><option>বুধবার</option><option>বৃহস্পতিবার</option><option>শুক্রবার</option>
+                </select>
+              </div>
+              <div class="field"><label>সময়</label><input id="routineTime" required placeholder="১০:০০–১১:০০"></div>
+            </div>
+            <button class="btn" type="submit">রুটিন যোগ করুন</button>
+          </form>
+          <div id="routineMessage" class="message"></div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+          <h3>প্রকাশিত রুটিন</h3>
+          <div id="adminRoutines" class="empty">লোড হচ্ছে...</div>
+        </div>
+
+        <div class="panel" style="grid-column:1/-1">
+          <h3>📊 শিক্ষার্থীর ফলাফল যোগ করুন</h3>
+          <form id="resultForm">
+            <div class="form-row">
+              <div class="field"><label>শিক্ষার্থীর UID</label><input id="resultUid" required placeholder="শিক্ষার্থীর UID"></div>
+              <div class="field"><label>পরীক্ষার নাম</label><input id="resultExam" required placeholder="যেমন: অর্ধবার্ষিক পরীক্ষা"></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label>বিষয়</label><input id="resultSubject" required></div>
+              <div class="field"><label>প্রাপ্ত নম্বর</label><input id="resultMarks" required maxlength="30" placeholder="যেমন: ৮৫/১০০"></div>
+            </div>
+            <button class="btn" type="submit">ফলাফল প্রকাশ করুন</button>
+          </form>
+          <div id="resultMessage" class="message"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>যোগাযোগ</h2>
+      <p>NRP Academy — National Research & Progress Academy</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <h3>শিক্ষার পথে একসঙ্গে</h3>
+      <p>প্রতিষ্ঠান-সংক্রান্ত তথ্য ও সহায়তার জন্য কর্তৃপক্ষের সঙ্গে যোগাযোগ করুন।</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <h3>NRP Academy</h3>
+      <p>National Research & Progress Academy</p>
+      <p>জ্ঞান • গবেষণা • অগ্রগতি</p>
+    </div>
+    <div>
+      <p><strong>Founder & Owner</strong></p>
+      <p>Md. Shahariar Nafis</p>
+      <p>© <span id="year"></span> NRP Academy. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Authentication Modal -->
+<div class="modal" id="authModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeAuth()" aria-label="বন্ধ করুন">×</button>
+    <h2 id="authHeading">লগইন</h2>
+    <p id="authIntro" style="color:var(--muted);font-size:14px">আপনার অ্যাকাউন্টে প্রবেশ করুন।</p>
+
+    <form id="authForm">
+      <div id="registerFields" class="hidden">
+        <div class="field"><label>আপনার পূর্ণ নাম</label><input id="regName" maxlength="100" autocomplete="name"></div>
+        <div class="field">
+          <label>শ্রেণি</label>
+          <select id="regClass">
+            <option value="">শ্রেণি নির্বাচন করুন</option>
+            <option>প্রথম</option><option>দ্বিতীয়</option><option>তৃতীয়</option>
+            <option>চতুর্থ</option><option>পঞ্চম</option><option>ষষ্ঠ</option>
+            <option>সপ্তম</option><option>অষ্টম</option><option>নবম</option>
+            <option>দশম</option><option>একাদশ</option><option>দ্বাদশ</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>ইমেইল</label><input id="authEmail" type="email" required autocomplete="email"></div>
+      <div class="field"><label>পাসওয়ার্ড</label><input id="authPassword" type="password" required minlength="6" autocomplete="current-password"></div>
+      <button class="btn" id="authSubmit" type="submit" style="width:100%">লগইন</button>
+    </form>
+
+    <div id="authMessage" class="message"></div>
+    <div style="display:flex;justify-content:space-between;gap:10px;margin-top:17px;flex-wrap:wrap">
+      <button class="btn btn-light btn-small" id="toggleAuth" type="button">নতুন শিক্ষার্থী? নিবন্ধন</button>
+      <button class="btn btn-light btn-small" id="resetPassword" type="button">পাসওয়ার্ড ভুলে গেছেন?</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  sendPasswordResetEmail, signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, doc, setDoc, getDoc, collection, addDoc,
+  getDocs, query, where, orderBy, deleteDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* Firebase project configuration */
+const firebaseConfig = {
+  apiKey: "AIzaSyBvfgLPSyN04duyuiQ-yPyteJf-1SV5Tlk",
+  authDomain: "nrp-academy-97320.firebaseapp.com",
+  projectId: "nrp-academy-97320",
+  storageBucket: "nrp-academy-97320.firebasestorage.app",
+  messagingSenderId: "509759304589",
+  appId: "1:509759304589:web:6ff1aca476a7fd7a0a43c4",
+  measurementId: "G-EKQGVBQLXJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const $ = id => document.getElementById(id);
+let authMode = "login";
+let currentUser = null;
+let currentRole = null;
+let busy = false;
+
+$("year").textContent = new Date().getFullYear();
+
+function showMessage(id, text, type="success"){
+  const el = $(id);
+  el.textContent = text;
+  el.className = "message show " + type;
+}
+function clearMessage(id){
+  const el = $(id);
+  el.textContent = "";
+  el.className = "message";
+}
+function safeText(value){
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  })[char]);
+}
+function formatDate(timestamp){
+  if(!timestamp) return "তারিখ পাওয়া য
